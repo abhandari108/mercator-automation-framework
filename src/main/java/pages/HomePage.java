@@ -1,6 +1,5 @@
 package pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -14,17 +13,17 @@ public class HomePage {
     public HomePage(WebDriver driver){
         this.driver = driver;
 
+        String pagetitle = driver.getTitle();
+
+        //validate if we are on the correct page, if not throw an error message
+        if (!pagetitle.equals("My Store")) {
+            throw new IllegalStateException("This is not the My Store Home page. The current page is "
+                    + driver.getCurrentUrl());
+        }
     }
 
     public void clickSignIn(){
-
         driver.findElement(btn_SignIn).click();
     }
 
-    public void validatePage(){
-        //Adding validation to check user is on the correct page
-        String ActualTitle = driver.getTitle();
-        String ExpectedTitle = "Login - My Store";
-        Assert.assertEquals(ExpectedTitle, ActualTitle);
-    }
 }

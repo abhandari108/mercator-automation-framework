@@ -7,7 +7,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -31,7 +30,7 @@ public class Create_Account_Steps {
         System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/java/drivers/chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-        //initialising chromedriver variable from line 13
+        //initialising chromedriver variable
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
     }
@@ -48,32 +47,27 @@ public class Create_Account_Steps {
     public void i_click_on_sign_in() throws InterruptedException {
         //Creating an instance or object of the HomePage class
         HomePage = new HomePage(driver);
-
         HomePage.clickSignIn();
-        HomePage.validatePage();
         Thread.sleep(3000);
     }
     @And("I enter a valid email {string} timestamp {string}")
-    public void i_enter_a_valid_email_timestamp(String email1, String email2) throws InterruptedException {
+    public void i_enter_a_valid_email_timestamp(String email1, String email2){
         LoginMyStorePage = new LoginMyStorePage(driver);
         LoginMyStorePage.enterEmail(email1, email2);
-        Thread.sleep(3000);
     }
     @And("I click Create an account")
     public void i_click_create_an_account() {
-
         LoginMyStorePage.clickCreateAccount();
     }
     @When("I enter the personal details")
     public void i_enter_the_personal_details(DataTable dataTable) {
-
         CreateAccountPage = new CreateAccountPage(driver);
+
         List<Map<String, String>> personalDetailsList = dataTable.asMaps(String.class, String.class);
         String Title = personalDetailsList.get(0).get("Title");
         String FirstName = personalDetailsList.get(0).get("FirstName");
 
         CreateAccountPage.completePersonalDetails(Title, FirstName);
-
 
     }
 
