@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.sql.Timestamp;
@@ -10,8 +11,9 @@ import java.time.Duration;
 public class LoginMyStorePage {
 
     WebDriver driver;
-    By txtEmailAddress = By.cssSelector("input#email_create");
-    By btn_CreateAccount = By.id("SubmitCreate");
+    By emailAddress = By.cssSelector("input#email_create");
+    By createAccount = By.id("SubmitCreate");
+    public String userEmail;
 
     public LoginMyStorePage(WebDriver driver){
         this.driver = driver;
@@ -22,15 +24,29 @@ public class LoginMyStorePage {
         }
     }
 
-    public void enterEmail(String email1, String email2){
+    public WebElement typeEmail(){
+        return driver.findElement(emailAddress);
+    }
+
+    public WebElement btnCreateAccount() {
+        return driver.findElement(createAccount);
+    }
+
+    public String enterEmail(String email1, String email2 ){
+        userEmail = null;
         //using a timestamp to create a unique email address for creating new accounts
         java.util.Date date = new java.util.Date();
         System.out.println(new Timestamp(date.getTime()));
-        driver.findElement(txtEmailAddress).sendKeys(email1 + date.getTime() + email2);
+
+        typeEmail().sendKeys(email1 + date.getTime() + email2);
+        String userEmail = driver.findElement(emailAddress).getAttribute("value");
+
+        //creating a global variable userEmail to be returned for completing Personal details
+        return userEmail;
     }
 
     public void clickCreateAccount() {
-        driver.findElement(btn_CreateAccount).click();
+        btnCreateAccount().click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10000));
         wait.until(ExpectedConditions.urlContains("#account-creation"));

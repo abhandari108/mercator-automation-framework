@@ -54,6 +54,7 @@ public class Create_Account_Steps {
     public void i_enter_a_valid_email_timestamp(String email1, String email2){
         LoginMyStorePage = new LoginMyStorePage(driver);
         LoginMyStorePage.enterEmail(email1, email2);
+
     }
     @And("I click Create an account")
     public void i_click_create_an_account() {
@@ -66,14 +67,25 @@ public class Create_Account_Steps {
         List<Map<String, String>> personalDetailsList = dataTable.asMaps(String.class, String.class);
         String Title = personalDetailsList.get(0).get("Title");
         String FirstName = personalDetailsList.get(0).get("FirstName");
-
-        CreateAccountPage.completePersonalDetails(Title, FirstName);
+        String LastName = personalDetailsList.get(0).get("LastName");
+        String Password = personalDetailsList.get(0).get("Password");
+        String DobDate = personalDetailsList.get(0).get("Date");
+        String DobMon = personalDetailsList.get(0).get("Month");
+        String DobYear = personalDetailsList.get(0).get("Year");
+        String Address = personalDetailsList.get(0).get("Address");
+        String City = personalDetailsList.get(0).get("City");
+        String State = personalDetailsList.get(0).get("State");
+        String ZipCode = personalDetailsList.get(0).get("ZipCode");
+        String Country = personalDetailsList.get(0).get("Country");
+        String Mobile = personalDetailsList.get(0).get("Mobile");
+        CreateAccountPage.completePersonalDetails(Title, FirstName, LastName, Password, DobDate,
+                DobMon, DobYear, Address, City, State, ZipCode, Country, Mobile );
 
     }
 
     @And("Click Register")
     public void click_register() {
-        // Write code here that turns the phrase above into concrete actions
+        CreateAccountPage.clickRegister();
 
     }
     @Then("A new account should be created successfully")
