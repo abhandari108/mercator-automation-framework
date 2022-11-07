@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class HomePage {
 
@@ -22,8 +23,12 @@ public class HomePage {
         }
     }
 
-    public void clickSignIn(){
-        driver.findElement(btn_SignIn).click();
+    public WebElement clickSignIn(){
+        return driver.findElement(btn_SignIn);
+    }
+
+    public void signIn(){
+        clickSignIn().click();
     }
 
 }

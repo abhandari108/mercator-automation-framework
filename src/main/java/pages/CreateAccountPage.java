@@ -3,6 +3,10 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CreateAccountPage extends LoginMyStorePage{
     //extends LoginStorePage to use var userEmail globally
@@ -107,6 +111,10 @@ public class CreateAccountPage extends LoginMyStorePage{
 
         public void clickRegister(){
             btnRegister().click();
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10000));
+            wait.until(ExpectedConditions.urlContains("controller=my-account"));
+            System.out.println("URL Matched");
         }
 
 }

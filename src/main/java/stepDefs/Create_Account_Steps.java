@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import pages.CreateAccountPage;
 import pages.HomePage;
 import pages.LoginMyStorePage;
+import pages.MyAccountMyStorePage;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class Create_Account_Steps {
     HomePage HomePage;
     LoginMyStorePage LoginMyStorePage;
     CreateAccountPage CreateAccountPage;
+    MyAccountMyStorePage MyAccountMyStorePage;
 
     @Before
     public void setup(){
@@ -47,7 +49,7 @@ public class Create_Account_Steps {
     public void i_click_on_sign_in() throws InterruptedException {
         //Creating an instance or object of the HomePage class
         HomePage = new HomePage(driver);
-        HomePage.clickSignIn();
+        HomePage.signIn();
         Thread.sleep(3000);
     }
     @And("I enter a valid email {string} timestamp {string}")
@@ -64,6 +66,7 @@ public class Create_Account_Steps {
     public void i_enter_the_personal_details(DataTable dataTable) {
         CreateAccountPage = new CreateAccountPage(driver);
 
+        //link data from the data file in the feature file and pass as parameters for account creation
         List<Map<String, String>> personalDetailsList = dataTable.asMaps(String.class, String.class);
         String Title = personalDetailsList.get(0).get("Title");
         String FirstName = personalDetailsList.get(0).get("FirstName");
@@ -90,7 +93,8 @@ public class Create_Account_Steps {
     }
     @Then("A new account should be created successfully")
     public void a_new_account_should_be_created_successfully() {
-        // Write code here that turns the phrase above into concrete actions
+        MyAccountMyStorePage = new MyAccountMyStorePage(driver);
+        MyAccountMyStorePage.signOut();
 
     }
 }
